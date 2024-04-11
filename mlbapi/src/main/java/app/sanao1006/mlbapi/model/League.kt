@@ -1,4 +1,4 @@
-package app.sanao1006.mlbapi.model.award
+package app.sanao1006.mlbapi.model
 
 
 import kotlinx.serialization.SerialName

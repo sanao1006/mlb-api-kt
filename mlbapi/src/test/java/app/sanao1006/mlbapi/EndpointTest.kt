@@ -20,4 +20,13 @@ class EndpointTest {
         assertEquals("/api/v1/sports/1", award[0].sport!!.link)
     }
 
+    @Test
+    fun `Communication test of the conferences endpoints`() = runTest {
+        val conferences = client.conferencesClient.getConferences()
+        assertNotNull(conferences[0])
+        for(conference in conferences) {
+            assertNotNull(conference.league)
+            assertNotNull(conference.sport)
+        }
+    }
 }
