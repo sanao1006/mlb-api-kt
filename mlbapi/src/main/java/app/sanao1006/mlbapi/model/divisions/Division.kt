@@ -25,7 +25,7 @@ data class Division(
     @SerialName("nameShort")
     val nameShort: String,
     @SerialName("numPlayoffTeams")
-    val numPlayoffTeams: Int?,
+    val numPlayoffTeams: Int? = null,
     @SerialName("season")
     val season: String,
     @SerialName("sortOrder")
