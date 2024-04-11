@@ -9,6 +9,21 @@ class EndpointTest {
     private val client = MlbClient()
 
     @Test
+    fun `Communication test of the attendance endpoint`() = runTest {
+        val attendance = client.attendanceClient.getAttendance(teamId = 111, leagueId = 103, leagueListId = "mlb")
+        assertNotNull(attendance.records)
+        assertNotNull(attendance.aggregateTotals)
+        println(attendance.records[0].openingsTotal)
+        assertEquals(120, attendance.records[0].openingsTotal)
+        assertEquals(71771, attendance.records[0].attendanceHighGame.gamePk)
+        assertEquals(	"/api/v1/game/71771/content", attendance.records[0].attendanceHighGame.content.link)
+        assertEquals(72005, attendance.records[0].attendanceLowGame!!.gamePk)
+        assertEquals("R", attendance.records[0].gameType.id)
+
+        assertEquals(8764, attendance.aggregateTotals.openingsTotalAway)
+    }
+
+    @Test
     fun `Communication test of the awards endpoints`() = runTest {
         val award = client.awardsClient.getAwards()
         assertNotNull(award[0])
