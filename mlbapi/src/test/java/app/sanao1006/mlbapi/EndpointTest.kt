@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class EndpointTest {
     private val client = MlbClient()
@@ -43,5 +44,17 @@ class EndpointTest {
             assertNotNull(conference.league)
             assertNotNull(conference.sport)
         }
+    }
+
+    @Test
+    fun `Communication test of the divisions endpoints`() = runTest {
+        val divisions = client.divisionsClient.getDivisions()
+        assertNotNull(divisions[0])
+        assertEquals("ASL-N", divisions[0].abbreviation)
+        assertEquals(true, divisions[0].active)
+        assertEquals(false, divisions[0].hasWildcard)
+        assertEquals(6006, divisions[0].league.id)
+        assertEquals(6005, divisions[0].sport.id)
+        assertNull(divisions[0].numPlayoffTeams)
     }
 }
