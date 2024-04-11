@@ -1,8 +1,6 @@
 package app.sanao1006.mlbapi.model.award
 
-
-import app.sanao1006.mlbapi.model.award.League
-import app.sanao1006.mlbapi.model.award.Sport
+import app.sanao1006.mlbkt.models.awards.League
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
