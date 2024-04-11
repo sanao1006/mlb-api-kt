@@ -3,6 +3,7 @@ package app.sanao1006.mlbapi
 import app.sanao1006.mlbapi.client.attendance.AttendanceClientImpl
 import app.sanao1006.mlbapi.client.award.AwardClientImpl
 import app.sanao1006.mlbapi.client.conferences.ConferencesClientImpl
+import app.sanao1006.mlbapi.client.divisions.DivisionsClientImpl
 import com.skydoves.sandwich.ktorfit.ApiResponseConverterFactory
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
@@ -47,4 +48,5 @@ class MlbClient {
     val awardsClient by lazy { AwardClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val conferencesClient by lazy { ConferencesClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val attendanceClient by lazy { AttendanceClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
+    val divisionsClient by lazy { DivisionsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
 }
