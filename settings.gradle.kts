@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "mlb-api-kt"
-include(":app")
+include(":sampleapp")
 include(":mlbapi")
