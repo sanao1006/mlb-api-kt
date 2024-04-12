@@ -57,4 +57,17 @@ class EndpointTest {
         assertEquals(6005, divisions[0].sport.id)
         assertNull(divisions[0].numPlayoffTeams)
     }
+
+    @Test
+    fun `Communication test of the draft endpoint`() = runTest {
+        val draft = client.draftClient.getDrafts(year = 2023)
+        assertEquals(2023, draft.draftYear)
+        assertNotNull(draft.rounds[0])
+        val firstRound = draft.rounds[0]
+        assertEquals("1", firstRound.round)
+        assertNotNull(firstRound.picks[0])
+        val firstPick = firstRound.picks[0]
+        assertEquals(5010764, firstPick.bisPlayerId)
+        assertEquals("9721000", firstPick.pickValue)
+    }
 }
