@@ -17,7 +17,7 @@ data class Person(
     @SerialName("birthDate")
     val birthDate: String,
     @SerialName("birthStateProvince")
-    val birthStateProvince: String?,
+    val birthStateProvince: String? = null,
     @SerialName("boxscoreName")
     val boxscoreName: String,
     @SerialName("currentAge")
@@ -35,7 +35,7 @@ data class Person(
     @SerialName("fullName")
     val fullName: String,
     @SerialName("gender")
-    val gender: String?,
+    val gender: String? = null,
     @SerialName("height")
     val height: String,
     @SerialName("id")
@@ -55,25 +55,25 @@ data class Person(
     @SerialName("link")
     val link: String,
     @SerialName("middleName")
-    val middleName: String?,
+    val middleName: String? = null,
     @SerialName("mlbDebutDate")
-    val mlbDebutDate: String?,
+    val mlbDebutDate: String? = null,
     @SerialName("nameFirstLast")
     val nameFirstLast: String,
     @SerialName("nameMatrilineal")
-    val nameMatrilineal: String?,
+    val nameMatrilineal: String? = null,
     @SerialName("nameSlug")
     val nameSlug: String,
     @SerialName("nameSuffix")
-    val nameSuffix: String?,
+    val nameSuffix: String? = null,
     @SerialName("nameTitle")
-    val nameTitle: String?,
+    val nameTitle: String? = null,
     @SerialName("nickName")
-    val nickName: String?,
+    val nickName: String? = null,
     @SerialName("pitchHand")
     val pitchHand: PitchHand,
     @SerialName("primaryNumber")
-    val primaryNumber: String?,
+    val primaryNumber: String? = null,
     @SerialName("primaryPosition")
     val primaryPosition: PrimaryPosition,
     @SerialName("strikeZoneBottom")

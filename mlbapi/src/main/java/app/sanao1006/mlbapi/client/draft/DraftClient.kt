@@ -7,7 +7,7 @@ import de.jensklingenberg.ktorfit.http.Path
 
 interface DraftClient {
     @GET("draft/{year}")
-    fun getDrafts(
+    suspend fun getDrafts(
         @Path("year") year: Int
     ): ApiResponse<Draft>
 }

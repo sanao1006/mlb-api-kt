@@ -15,5 +15,5 @@ data class School(
     @SerialName("schoolClass")
     val schoolClass: String,
     @SerialName("state")
-    val state: String?
+    val state: String? = null
 )

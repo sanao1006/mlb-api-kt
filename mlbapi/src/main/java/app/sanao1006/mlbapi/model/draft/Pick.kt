@@ -31,7 +31,7 @@ data class Pick(
     @SerialName("pickValue")
     val pickValue: String? = null,
     @SerialName("rank")
-    val rank: Int?,
+    val rank: Int? = null,
     @SerialName("roundPickNumber")
     val roundPickNumber: Int,
     @SerialName("school")
