@@ -35,6 +35,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -56,15 +61,18 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
+publishing {
+    publications {
+        register<MavenPublication>("") {}
+        create<MavenPublication>("release") {
+            groupId = GROUP_ID
+            artifactId = ARTIFACT_ID
+            version = VERSION
+
+            afterEvaluate {
                 from(components["release"])
-                groupId = GROUP_ID
-                artifactId = ARTIFACT_ID
-                version = VERSION
             }
         }
     }
 }
+
