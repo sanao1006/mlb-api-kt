@@ -8,8 +8,8 @@ plugins {
 }
 
 val GROUP_ID = "com.github.sanao1006"
-val ARTIFACT_ID = "mlb-api-kt"
-val VERSION = "0.0.1"
+val ARTIFACT_ID = "mlbapikkt"
+val VERSION = "0.0.11"
 
 android {
     namespace = "app.sanao1006.mlbkt"
@@ -32,8 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     publishing {
         singleVariant("release") {
@@ -41,7 +41,7 @@ android {
         }
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
@@ -63,8 +63,8 @@ dependencies {
 
 publishing {
     publications {
-        register<MavenPublication>("") {}
-        create<MavenPublication>("release") {
+
+        register<MavenPublication>("release") {
             groupId = GROUP_ID
             artifactId = ARTIFACT_ID
             version = VERSION
