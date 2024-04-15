@@ -6,6 +6,7 @@ import app.sanao1006.mlbapi.client.conferences.ConferencesClientImpl
 import app.sanao1006.mlbapi.client.divisions.DivisionsClientImpl
 import app.sanao1006.mlbapi.client.draft.DraftClientImpl
 import app.sanao1006.mlbapi.client.highlow.HighLowClientImpl
+import app.sanao1006.mlbapi.client.homeRunDerby.HomeRunDerbyClientImpl
 import com.skydoves.sandwich.ktorfit.ApiResponseConverterFactory
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
@@ -53,4 +54,5 @@ class MlbClient {
     val divisionsClient by lazy { DivisionsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val draftClient by lazy { DraftClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val highLowClient by lazy { HighLowClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
+    val homeRunDerbyClient by lazy { HomeRunDerbyClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
 }
