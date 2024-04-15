@@ -70,4 +70,15 @@ class EndpointTest {
         assertEquals(5010764, firstPick.bisPlayerId)
         assertEquals("9721000", firstPick.pickValue)
     }
+
+    @Test
+    fun `Communication test of the highLow endpoint`() = runTest {
+        val highLow = client.highLowClient.getHighLow("team")
+        assertEquals(true, highLow.isNotEmpty())
+        val highLowResult = highLow.last()
+        assertEquals(true, highLowResult.combinedStats)
+        assertEquals("Regular Season", highLowResult.gameType.description)
+        assertEquals("hitting", highLowResult.group.displayName)
+        assertEquals(listOf("PLAYER", "TEAM", "GAME"), highLowResult.sortStat.highLowTypes)
+    }
 }
