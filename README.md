@@ -1,4 +1,5 @@
 [![](https://jitpack.io/v/sanao1006/mlb-api-kt.svg)](https://jitpack.io/#sanao1006/mlb-api-kt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # mlb-api-kt
 🚧 WIP  
 This is MLB Stats API wrapper for Android
