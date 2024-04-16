@@ -97,4 +97,15 @@ class EndpointTest {
         assertEquals("American League", first.name)
         assertEquals(1, first.sport.id)
     }
+
+    @Test
+    fun `Communication test of the league allStarBallot endpoint`() = runTest {
+        val allStarBallot = client.leagueClient.getAllStartBallot(leagueId = 103, season = 2023)
+        assertEquals(true, allStarBallot.isNotEmpty())
+        val first = allStarBallot[0]
+        assertEquals("José Abreu", first.fullName)
+        assertEquals("First Base", first.primaryPosition.name)
+        assertEquals("Right", first.pitchHand.description)
+        assertEquals("Right", first.batSide.description)
+    }
 }
