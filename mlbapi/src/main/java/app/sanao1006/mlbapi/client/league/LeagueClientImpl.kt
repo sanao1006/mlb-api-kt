@@ -25,6 +25,7 @@ class LeagueClientImpl(
             }
         }
 
+        @JvmName("toListPeople")
         fun ApiResponse<AllStarBallotResponse>.toList(): List<People> {
             return when (this) {
                 is ApiResponse.Success -> this.data.people

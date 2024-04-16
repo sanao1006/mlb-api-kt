@@ -75,7 +75,7 @@ data class People(
     @SerialName("pitchHand")
     val pitchHand: PitchHand,
     @SerialName("primaryNumber")
-    val primaryNumber: String,
+    val primaryNumber: String? = null,
     @SerialName("primaryPosition")
     val primaryPosition: PrimaryPosition,
     @SerialName("pronunciation")
