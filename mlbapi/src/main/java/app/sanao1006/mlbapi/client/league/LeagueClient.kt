@@ -1,6 +1,7 @@
 package app.sanao1006.mlbapi.client.league
 
 import app.sanao1006.mlbapi.model.league.AllStarBallotResponse
+import app.sanao1006.mlbapi.model.league.AllStarFinalVoteResponse
 import app.sanao1006.mlbapi.model.league.Leagues
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
@@ -19,4 +20,10 @@ interface LeagueClient {
         @Path("leagueId") leagueId: Int,
         @Query("season") season: Int
     ): ApiResponse<AllStarBallotResponse>
+
+    @GET("league/{leagueId}/allStarFinalVote")
+    suspend fun getLeagueAllStarFinalVote(
+        @Path("leagueId") leagueId: Int,
+        @Query("season") season: Int
+    ): ApiResponse<AllStarFinalVoteResponse>
 }
