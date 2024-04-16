@@ -96,7 +96,18 @@ class EndpointTest {
         assertEquals(true, allStarBallot.isNotEmpty())
         val first = allStarBallot[0]
         assertEquals("José Abreu", first.fullName)
-        assertEquals("First Base", first.primaryPosition.name)
+        assertEquals("First Base", first.primaryPosition!!.name)
+        assertEquals("Right", first.pitchHand.description)
+        assertEquals("Right", first.batSide.description)
+    }
+
+    @Test
+    fun `Communication test of the league allStarWriteIns endpoint`() = runTest {
+        val allStarWriteIns = client.leagueClient.getAllStarWriteIns(leagueId = 103, season = 2023)
+        assertEquals(true, allStarWriteIns.isNotEmpty())
+        val first = allStarWriteIns[0]
+        assertEquals("Michael Stefanic", first.fullName)
+        assertNull(first.primaryPosition)
         assertEquals("Right", first.pitchHand.description)
         assertEquals("Right", first.batSide.description)
     }
@@ -107,7 +118,7 @@ class EndpointTest {
         assertEquals(true, allStarFinalVote.isNotEmpty())
         val first = allStarFinalVote[0]
         assertEquals("Shohei Ohtani", first.fullName)
-        assertEquals("Designated Hitter", first.primaryPosition.name)
+        assertEquals("Designated Hitter", first.primaryPosition!!.name)
         assertEquals("Right", first.pitchHand.description)
         assertEquals("Left", first.batSide.description)
     }
