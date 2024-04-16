@@ -87,4 +87,14 @@ class EndpointTest {
         val homeRunDerby = client.homeRunDerbyClient.getHomeRunDerby(511101)
         assertEquals("All-Star Workout Day: Home Run Derby", homeRunDerby.info.name)
     }
+
+    @Test
+    fun `Communication test of the league endpoint`() = runTest {
+        val league = client.leagueClient.getLeagues(sportId = 1, leagueIds = 103)
+        assertEquals(true, league.isNotEmpty())
+        val first = league[0]
+        assertEquals("AL", first.abbreviation)
+        assertEquals("American League", first.name)
+        assertEquals(1, first.sport.id)
+    }
 }
