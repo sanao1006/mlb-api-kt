@@ -77,7 +77,7 @@ data class People(
     @SerialName("primaryNumber")
     val primaryNumber: String? = null,
     @SerialName("primaryPosition")
-    val primaryPosition: PrimaryPosition,
+    val primaryPosition: PrimaryPosition? = null,
     @SerialName("pronunciation")
     val pronunciation: String? = null,
     @SerialName("strikeZoneBottom")
