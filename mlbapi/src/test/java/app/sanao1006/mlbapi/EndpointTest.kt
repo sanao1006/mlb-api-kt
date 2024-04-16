@@ -100,4 +100,15 @@ class EndpointTest {
         assertEquals("Right", first.pitchHand.description)
         assertEquals("Right", first.batSide.description)
     }
+
+    @Test
+    fun `Communication test of the league allStarFinalVote endpoint`() = runTest {
+        val allStarFinalVote = client.leagueClient.getAllStartFinalVote(leagueId = 103, season = 2023)
+        assertEquals(true, allStarFinalVote.isNotEmpty())
+        val first = allStarFinalVote[0]
+        assertEquals("Shohei Ohtani", first.fullName)
+        assertEquals("Designated Hitter", first.primaryPosition.name)
+        assertEquals("Right", first.pitchHand.description)
+        assertEquals("Left", first.batSide.description)
+    }
 }
