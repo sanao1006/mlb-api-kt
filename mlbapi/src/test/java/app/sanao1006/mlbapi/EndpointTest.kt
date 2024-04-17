@@ -122,4 +122,16 @@ class EndpointTest {
         assertEquals("Right", first.pitchHand.description)
         assertEquals("Left", first.batSide.description)
     }
+
+    @Test
+    fun `Communication test of the people endpoint`() = runTest {
+        val people = client.peopleClient.getPeople(personIds = 660271)
+        assertEquals(true, people.isNotEmpty())
+        val person = people[0]
+        assertEquals("Shohei Ohtani", person.fullName)
+        assertEquals("Showtime", person.nickName)
+        assertEquals("Left", person.batSide.description)
+        assertEquals("TWP", person.primaryPosition.abbreviation)
+        assertEquals("Two-Way Player", person.primaryPosition.name)
+    }
 }
