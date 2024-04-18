@@ -165,4 +165,11 @@ class EndpointTest {
             assertEquals("connection error", e.message)
         }
     }
+
+    @Test
+    fun `Communication test of the person stats endpoint`() = runTest {
+        val stats = client.peopleClient.getPersonStats(personId = 660271, gamePk = 746163)
+        assertEquals(true, stats.isNotEmpty())
+        // TODO create test cases
+    }
 }
