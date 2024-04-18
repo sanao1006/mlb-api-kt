@@ -134,4 +134,16 @@ class EndpointTest {
         assertEquals("TWP", person.primaryPosition.abbreviation)
         assertEquals("Two-Way Player", person.primaryPosition.name)
     }
+
+    @Test
+    fun `Communication test of the people freeAgents endpoint`() = runTest {
+        val freeAgents = client.peopleClient.getPeopleFreeAgents(leagueId = 103, season = 2023)
+        assertEquals("2023", freeAgents.season)
+        assertEquals(true, freeAgents.freeAgents.isNotEmpty())
+        val person = freeAgents.freeAgents[1]
+        assertEquals("Cory Abbott", person.player.fullName)
+        assertEquals("Seattle Mariners", person.newTeam.name)
+        assertEquals("Washington Nationals", person.originalTeam.name)
+        assertEquals("RP", person.position.abbreviation)
+    }
 }
