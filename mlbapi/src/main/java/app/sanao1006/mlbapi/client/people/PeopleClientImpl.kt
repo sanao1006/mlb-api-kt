@@ -17,6 +17,9 @@ class PeopleClientImpl(
     suspend fun getPeopleFreeAgents(leagueId: Int, season: Int): PeopleFreeAgents =
         peopleClient.getPeopleFreeAgents(leagueId = leagueId, season = season).toPeopleFreeAgents()
 
+    suspend fun getPerson(personId: Int): List<People> =
+        peopleClient.getPerson(personId = personId).toList()
+
     companion object {
         fun ApiResponse<PeopleResponse>.toList(): List<People> {
             return when (this) {

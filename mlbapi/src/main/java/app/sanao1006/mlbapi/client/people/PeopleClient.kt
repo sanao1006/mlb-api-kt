@@ -4,6 +4,7 @@ import app.sanao1006.mlbapi.model.people.PeopleFreeAgentsResponse
 import app.sanao1006.mlbapi.model.people.PeopleResponse
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Query
 
 interface PeopleClient {
@@ -17,4 +18,7 @@ interface PeopleClient {
         @Query("leagueId") leagueId: Int,
         @Query("season") season: Int
     ): ApiResponse<PeopleFreeAgentsResponse>
+
+    @GET("people/{personId}")
+    suspend fun getPerson(@Path("personId") personId: Int): ApiResponse<PeopleResponse>
 }
