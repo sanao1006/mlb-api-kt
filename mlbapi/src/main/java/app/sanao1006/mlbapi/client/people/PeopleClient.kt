@@ -1,5 +1,6 @@
 package app.sanao1006.mlbapi.client.people
 
+import app.sanao1006.mlbapi.model.people.PeopleFreeAgentsResponse
 import app.sanao1006.mlbapi.model.people.PeopleResponse
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
@@ -10,4 +11,10 @@ interface PeopleClient {
     suspend fun getPeople(
         @Query("personIds") personIds: Int
     ): ApiResponse<PeopleResponse>
+
+    @GET("people/freeAgents")
+    suspend fun getPeopleFreeAgents(
+        @Query("leagueId") leagueId: Int,
+        @Query("season") season: Int
+    ): ApiResponse<PeopleFreeAgentsResponse>
 }
