@@ -2,6 +2,7 @@ package app.sanao1006.mlbapi
 
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
+import java.net.ConnectException
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -145,5 +146,23 @@ class EndpointTest {
         assertEquals("Seattle Mariners", person.newTeam.name)
         assertEquals("Washington Nationals", person.originalTeam.name)
         assertEquals("RP", person.position.abbreviation)
+    }
+
+    @Test()
+    fun `Communication test of the person endpoint`() = runTest {
+        val people = client.peopleClient.getPerson(personId = 660271)
+        assertEquals(true, people.isNotEmpty())
+        val person = people[0]
+        assertEquals("Shohei Ohtani", person.fullName)
+        assertEquals("Showtime", person.nickName)
+        assertEquals("Left", person.batSide.description)
+        assertEquals("TWP", person.primaryPosition.abbreviation)
+        assertEquals("Two-Way Player", person.primaryPosition.name)
+
+        try {
+            val failCase = client.peopleClient.getPerson(personId = 1)
+        } catch(e: ConnectException) {
+            assertEquals("connection error", e.message)
+        }
     }
 }
