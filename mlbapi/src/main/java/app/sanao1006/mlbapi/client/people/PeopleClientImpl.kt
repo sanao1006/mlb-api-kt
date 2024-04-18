@@ -4,6 +4,8 @@ import app.sanao1006.mlbapi.model.people.People
 import app.sanao1006.mlbapi.model.people.PeopleFreeAgents
 import app.sanao1006.mlbapi.model.people.PeopleFreeAgentsResponse
 import app.sanao1006.mlbapi.model.people.PeopleResponse
+import app.sanao1006.mlbapi.model.people.PersonStatsResponse
+import app.sanao1006.mlbapi.model.people.Stat
 import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.getOrThrow
 import java.net.ConnectException
@@ -20,6 +22,9 @@ class PeopleClientImpl(
     suspend fun getPerson(personId: Int): List<People> =
         peopleClient.getPerson(personId = personId).toList()
 
+    suspend fun getPersonStats(personId: Int, gamePk: Int): List<Stat> =
+        peopleClient.getPersonStats(personId = personId, gamePk = gamePk).toList()
+
     companion object {
         fun ApiResponse<PeopleResponse>.toList(): List<People> {
             return when (this) {
@@ -32,6 +37,14 @@ class PeopleClientImpl(
         fun ApiResponse<PeopleFreeAgentsResponse>.toPeopleFreeAgents(): PeopleFreeAgents {
             return when (this) {
                 is ApiResponse.Success -> this.data.toPeopleFreeAgents()
+                is ApiResponse.Failure -> throw ConnectException("connection error")
+            }
+        }
+
+        @JvmName("personStatsResponseToListStats")
+        fun ApiResponse<PersonStatsResponse>.toList(): List<Stat> {
+            return when (this) {
+                is ApiResponse.Success -> this.data.stats
                 is ApiResponse.Failure -> throw ConnectException("connection error")
             }
         }
