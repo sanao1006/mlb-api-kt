@@ -172,4 +172,15 @@ class EndpointTest {
         assertEquals(true, stats.isNotEmpty())
         // TODO create test cases
     }
+
+    @Test
+    fun `Communication test of the standings endpoint`() = runTest {
+        val standings = client.standingsClient.getStandings(leagueId = 103)
+        assertEquals(true, standings.isNotEmpty())
+        val standing = standings[0]
+        assertEquals(201, standing.division.id)
+        for (teamRecord in standing.teamRecords) {
+            assertNotNull(teamRecord.clinched)
+        }
+    }
 }
