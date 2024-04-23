@@ -10,6 +10,7 @@ import app.sanao1006.mlbapi.client.homeRunDerby.HomeRunDerbyClientImpl
 import app.sanao1006.mlbapi.client.league.LeagueClientImpl
 import app.sanao1006.mlbapi.client.people.PeopleClientImpl
 import app.sanao1006.mlbapi.client.standings.StandingsClientImpl
+import app.sanao1006.mlbapi.client.stats.StatsClientImpl
 import com.skydoves.sandwich.ktorfit.ApiResponseConverterFactory
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
@@ -61,4 +62,5 @@ class MlbClient {
     val leagueClient by lazy { LeagueClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val peopleClient by lazy { PeopleClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val standingsClient by lazy { StandingsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
+    val statsClient by lazy { StatsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
 }
