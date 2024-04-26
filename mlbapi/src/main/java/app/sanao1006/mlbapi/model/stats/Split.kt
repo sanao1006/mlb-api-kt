@@ -21,7 +21,8 @@ data class Split(
     @SerialName("sport")
     val sport: Sport,
     @SerialName("stat")
-    val stat: PitcherStat,
+    @Serializable(with = HittingOrPitchingStatSerializer::class)
+    val stat: HittingOrPitchingStat,
     @SerialName("team")
     val team: Team
 )

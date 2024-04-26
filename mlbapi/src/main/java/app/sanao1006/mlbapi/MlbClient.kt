@@ -11,6 +11,9 @@ import app.sanao1006.mlbapi.client.league.LeagueClientImpl
 import app.sanao1006.mlbapi.client.people.PeopleClientImpl
 import app.sanao1006.mlbapi.client.standings.StandingsClientImpl
 import app.sanao1006.mlbapi.client.stats.StatsClientImpl
+import app.sanao1006.mlbapi.model.stats.HittingOrPitchingStat
+import app.sanao1006.mlbapi.model.stats.HittingStat
+import app.sanao1006.mlbapi.model.stats.PitchingStat
 import com.skydoves.sandwich.ktorfit.ApiResponseConverterFactory
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
@@ -22,6 +25,8 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
 
 class MlbClient {
     companion object {
@@ -40,6 +45,12 @@ class MlbClient {
                     ignoreUnknownKeys = true
                     useArrayPolymorphism = false
                     encodeDefaults = true
+                    serializersModule = SerializersModule {
+                        polymorphic(HittingOrPitchingStat::class) {
+                            subclass(HittingStat::class, HittingStat.serializer())
+                            subclass(PitchingStat::class, PitchingStat.serializer())
+                        }
+                    }
                 })
             }
 
