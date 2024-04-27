@@ -1,5 +1,6 @@
 package app.sanao1006.mlbapi.client.teams
 
+import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
 import app.sanao1006.mlbapi.model.teams.TeamsHistoryResponse
 import app.sanao1006.mlbapi.model.teams.TeamsResponse
 import com.skydoves.sandwich.ApiResponse
@@ -26,4 +27,16 @@ interface TeamsClient {
         @Query("endSeason") endSeason: String?,
         @Query("fields") fields: String?,
     ): ApiResponse<TeamsHistoryResponse>
+
+    @GET("teams/stats")
+    suspend fun getTeamsStats(
+        @Query("season") season: Int,
+        @Query("group") group: String,
+        @Query("stats") stats: String,
+        @Query("sportIds") sportIds: Int = 1,
+        @Query("gameType") gameType: String?,
+        @Query("order") order: String?,
+        @Query("sortStat") sortStat: String?,
+        @Query("fields") fields: String?
+    ): ApiResponse<TeamStatsResponse>
 }
