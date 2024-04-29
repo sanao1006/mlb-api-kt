@@ -3,6 +3,7 @@ package app.sanao1006.mlbapi.client.teams
 import app.sanao1006.mlbapi.model.teams.Stat
 import app.sanao1006.mlbapi.model.teams.Team
 import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
+import app.sanao1006.mlbapi.model.teams.TeamResponse
 import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
 import app.sanao1006.mlbapi.model.teams.TeamsHistoryResponse
 import app.sanao1006.mlbapi.model.teams.TeamsResponse
@@ -63,6 +64,21 @@ class TeamsClientImpl(
             fields = fields
         ).toList()
 
+    suspend fun getTeam(
+        teamId: Int,
+        season: Int? = null,
+        sportId: Int? = null,
+        hydrate: String? = null,
+        fields: String? = null
+    ): List<Team> =
+        teamsClient.getTeam(
+            teamId = teamId,
+            season = season,
+            sportId = sportId,
+            hydrate = hydrate,
+            fields = fields
+        ).toList()
+
     companion object {
         fun ApiResponse<TeamsResponse>.toList(): List<Team> {
             return when (this) {
@@ -86,6 +102,13 @@ class TeamsClientImpl(
         }
         @JvmName("teamsAffiliatesResponseToTeamList")
         fun ApiResponse<TeamAffiliatesResponse>.toList(): List<Team> {
+            return when (this) {
+                is ApiResponse.Success -> this.data.teams
+                is ApiResponse.Failure -> emptyList()
+            }
+        }
+        @JvmName("teamResponseToTeamList")
+        fun ApiResponse<TeamResponse>.toList(): List<Team> {
             return when (this) {
                 is ApiResponse.Success -> this.data.teams
                 is ApiResponse.Failure -> emptyList()

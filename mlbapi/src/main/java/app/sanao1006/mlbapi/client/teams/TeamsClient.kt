@@ -1,11 +1,13 @@
 package app.sanao1006.mlbapi.client.teams
 
 import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
+import app.sanao1006.mlbapi.model.teams.TeamResponse
 import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
 import app.sanao1006.mlbapi.model.teams.TeamsHistoryResponse
 import app.sanao1006.mlbapi.model.teams.TeamsResponse
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Query
 
 interface TeamsClient {
@@ -49,4 +51,13 @@ interface TeamsClient {
         @Query("hydrate") hydrate: String?,
         @Query("fields") fields: String?
     ): ApiResponse<TeamAffiliatesResponse>
+
+    @GET("teams/{teamId}")
+    suspend fun getTeam(
+        @Path("teamId") teamId: Int,
+        @Query("season") season: Int?,
+        @Query("sportId") sportId: Int?,
+        @Query("hydrate") hydrate: String?,
+        @Query("fields") fields: String?
+    ): ApiResponse<TeamResponse>
 }
