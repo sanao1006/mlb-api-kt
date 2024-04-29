@@ -1,5 +1,6 @@
 package app.sanao1006.mlbapi.client.teams
 
+import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
 import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
 import app.sanao1006.mlbapi.model.teams.TeamsHistoryResponse
 import app.sanao1006.mlbapi.model.teams.TeamsResponse
@@ -39,4 +40,13 @@ interface TeamsClient {
         @Query("sortStat") sortStat: String?,
         @Query("fields") fields: String?
     ): ApiResponse<TeamStatsResponse>
+
+    @GET("teams/affiliates")
+    suspend fun getTeamsAffiliates(
+        @Query("teamIds") teamIds: Int,
+        @Query("sportId") sportId: Int?,
+        @Query("season") season: Int?,
+        @Query("hydrate") hydrate: String?,
+        @Query("fields") fields: String?
+    ): ApiResponse<TeamAffiliatesResponse>
 }
