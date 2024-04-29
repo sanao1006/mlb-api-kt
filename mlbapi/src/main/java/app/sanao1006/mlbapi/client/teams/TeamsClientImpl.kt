@@ -7,6 +7,8 @@ import app.sanao1006.mlbapi.model.teams.Team
 import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
 import app.sanao1006.mlbapi.model.teams.TeamAlumniResponse
 import app.sanao1006.mlbapi.model.teams.TeamCoachesResponse
+import app.sanao1006.mlbapi.model.teams.TeamLeader
+import app.sanao1006.mlbapi.model.teams.TeamLeadersResponse
 import app.sanao1006.mlbapi.model.teams.TeamResponse
 import app.sanao1006.mlbapi.model.teams.TeamRoster
 import app.sanao1006.mlbapi.model.teams.TeamRosterResponse
@@ -130,6 +132,25 @@ class TeamsClientImpl(
             hydrate = hydrate,
             fields = fields
         ).toTeamRoster()
+    
+    suspend fun getTeamLeaders(
+        teamId: Int,
+        season: Int,
+        leaderCategories: String,
+        hydrate: String? = null,
+        leaderGameTypes: String? = null,
+        limit: Int? = null,
+        fields: String? = null
+    ): List<TeamLeader> =
+        teamsClient.getTeamLeaders(
+            teamId = teamId,
+            season = season,
+            leaderCategories = leaderCategories,
+            hydrate = hydrate,
+            leaderGameTypes = leaderGameTypes,
+            limit = limit,
+            fields = fields
+        ).toList()
 
     companion object {
         fun ApiResponse<TeamsResponse>.toList(): List<Team> {
@@ -195,6 +216,13 @@ class TeamsClientImpl(
                     teamId = this.data.teamId
                 )
                 is ApiResponse.Failure -> throw ConnectException("connection error")
+            }
+        }
+        @JvmName("teamLeadersResponseToTeamLeaderList")
+        fun ApiResponse<TeamLeadersResponse>.toList(): List<TeamLeader> {
+            return when (this) {
+                is ApiResponse.Success -> this.data.teamLeaders
+                is ApiResponse.Failure -> emptyList()
             }
         }
     }

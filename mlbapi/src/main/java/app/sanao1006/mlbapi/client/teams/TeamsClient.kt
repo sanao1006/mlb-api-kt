@@ -3,6 +3,7 @@ package app.sanao1006.mlbapi.client.teams
 import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
 import app.sanao1006.mlbapi.model.teams.TeamAlumniResponse
 import app.sanao1006.mlbapi.model.teams.TeamCoachesResponse
+import app.sanao1006.mlbapi.model.teams.TeamLeadersResponse
 import app.sanao1006.mlbapi.model.teams.TeamResponse
 import app.sanao1006.mlbapi.model.teams.TeamRosterResponse
 import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
@@ -90,4 +91,15 @@ interface TeamsClient {
         @Query("hydrate") hydrate: String?,
         @Query("fields") fields: String?
     ): ApiResponse<TeamRosterResponse>
+
+    @GET("teams/{teamId}/leaders")
+    suspend fun getTeamLeaders(
+        @Path("teamId") teamId: Int,
+        @Query("season") season: Int,
+        @Query("leaderCategories") leaderCategories: String,
+        @Query("hydrate") hydrate: String?,
+        @Query("leaderGameTypes") leaderGameTypes: String?,
+        @Query("limit") limit: Int?,
+        @Query("fields") fields: String?
+    ): ApiResponse<TeamLeadersResponse>
 }
