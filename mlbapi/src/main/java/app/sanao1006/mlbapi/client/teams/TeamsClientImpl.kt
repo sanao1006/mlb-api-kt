@@ -8,6 +8,8 @@ import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
 import app.sanao1006.mlbapi.model.teams.TeamAlumniResponse
 import app.sanao1006.mlbapi.model.teams.TeamCoachesResponse
 import app.sanao1006.mlbapi.model.teams.TeamResponse
+import app.sanao1006.mlbapi.model.teams.TeamRoster
+import app.sanao1006.mlbapi.model.teams.TeamRosterResponse
 import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
 import app.sanao1006.mlbapi.model.teams.TeamsHistoryResponse
 import app.sanao1006.mlbapi.model.teams.TeamsResponse
@@ -112,6 +114,23 @@ class TeamsClientImpl(
             fields = fields
         ).toCoaches()
 
+    suspend fun getTeamRoster(
+        teamId: Int,
+        season: Int? = LocalDateTime.now().year,
+        rosterType: String? = null,
+        date: String? = null,
+        hydrate: String? = null,
+        fields: String? = null
+    ): TeamRoster =
+        teamsClient.getTeamRoster(
+            teamId = teamId,
+            season = season,
+            rosterType = rosterType,
+            date = date,
+            hydrate = hydrate,
+            fields = fields
+        ).toTeamRoster()
+
     companion object {
         fun ApiResponse<TeamsResponse>.toList(): List<Team> {
             return when (this) {
@@ -158,6 +177,18 @@ class TeamsClientImpl(
         fun ApiResponse<TeamCoachesResponse>.toCoaches(): Coaches {
             return when (this) {
                 is ApiResponse.Success -> Coaches(
+                    link = this.data.link,
+                    roster = this.data.roster,
+                    rosterType = this.data.rosterType,
+                    teamId = this.data.teamId
+                )
+                is ApiResponse.Failure -> throw ConnectException("connection error")
+            }
+        }
+        @JvmName("teamRosterResponseToTeamRoster")
+        fun ApiResponse<TeamRosterResponse>.toTeamRoster(): TeamRoster {
+            return when (this) {
+                is ApiResponse.Success -> TeamRoster(
                     link = this.data.link,
                     roster = this.data.roster,
                     rosterType = this.data.rosterType,
