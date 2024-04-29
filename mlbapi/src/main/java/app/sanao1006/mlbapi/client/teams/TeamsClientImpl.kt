@@ -1,15 +1,18 @@
 package app.sanao1006.mlbapi.client.teams
 
+import app.sanao1006.mlbapi.model.teams.Coaches
 import app.sanao1006.mlbapi.model.teams.People
 import app.sanao1006.mlbapi.model.teams.Stat
 import app.sanao1006.mlbapi.model.teams.Team
 import app.sanao1006.mlbapi.model.teams.TeamAffiliatesResponse
 import app.sanao1006.mlbapi.model.teams.TeamAlumniResponse
+import app.sanao1006.mlbapi.model.teams.TeamCoachesResponse
 import app.sanao1006.mlbapi.model.teams.TeamResponse
 import app.sanao1006.mlbapi.model.teams.TeamStatsResponse
 import app.sanao1006.mlbapi.model.teams.TeamsHistoryResponse
 import app.sanao1006.mlbapi.model.teams.TeamsResponse
 import com.skydoves.sandwich.ApiResponse
+import java.net.ConnectException
 import java.time.LocalDateTime
 
 class TeamsClientImpl(
@@ -96,6 +99,19 @@ class TeamsClientImpl(
             fields = fields
         ).toList()
 
+    suspend fun getTeamCoaches(
+        teamId: Int,
+        season: Int? = LocalDateTime.now().year,
+        date: String? = null,
+        fields: String? = null
+    ): Coaches =
+        teamsClient.getTeamCoaches(
+            teamId = teamId,
+            season = season,
+            date = date,
+            fields = fields
+        ).toCoaches()
+
     companion object {
         fun ApiResponse<TeamsResponse>.toList(): List<Team> {
             return when (this) {
@@ -136,6 +152,18 @@ class TeamsClientImpl(
             return when (this) {
                 is ApiResponse.Success -> this.data.people
                 is ApiResponse.Failure -> emptyList()
+            }
+        }
+        @JvmName("teamCoachesResponseToCoaches")
+        fun ApiResponse<TeamCoachesResponse>.toCoaches(): Coaches {
+            return when (this) {
+                is ApiResponse.Success -> Coaches(
+                    link = this.data.link,
+                    roster = this.data.roster,
+                    rosterType = this.data.rosterType,
+                    teamId = this.data.teamId
+                )
+                is ApiResponse.Failure -> throw ConnectException("connection error")
             }
         }
     }
