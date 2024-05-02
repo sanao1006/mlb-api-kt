@@ -1,9 +1,11 @@
 package app.sanao1006.mlbapi.client.seasons
 
+import app.sanao1006.mlbapi.model.seasons.SeasonResponse
 import app.sanao1006.mlbapi.model.seasons.SeasonsAllResponse
 import app.sanao1006.mlbapi.model.seasons.SeasonsResponse
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Query
 
 interface SeasonsClient {
@@ -24,4 +26,11 @@ interface SeasonsClient {
         @Query("leagueId") leagueId: Int?,
         @Query("fields") fields: String?
     ): ApiResponse<SeasonsAllResponse>
+
+    @GET("seasons/{seasonId}")
+    suspend fun getSeason(
+        @Path("seasonId") seasonId: Int,
+        @Query("sportId") sportId: Int,
+        @Query("fields") fields: String?
+    ): ApiResponse<SeasonResponse>
 }

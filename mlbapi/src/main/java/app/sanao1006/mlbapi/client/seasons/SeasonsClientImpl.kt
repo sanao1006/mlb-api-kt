@@ -2,6 +2,7 @@ package app.sanao1006.mlbapi.client.seasons
 
 import app.sanao1006.mlbapi.model.seasons.Season
 import app.sanao1006.mlbapi.model.seasons.SeasonAll
+import app.sanao1006.mlbapi.model.seasons.SeasonResponse
 import app.sanao1006.mlbapi.model.seasons.SeasonsAllResponse
 import app.sanao1006.mlbapi.model.seasons.SeasonsResponse
 import com.skydoves.sandwich.ApiResponse
@@ -39,6 +40,18 @@ class SeasonsClientImpl(
             fields = fields
         ).toList()
 
+    suspend fun getSeason(
+        seasonId: Int,
+        sportId: Int,
+        fields: String? = null
+    ): List<Season> =
+        seasonsClient.getSeason(
+            seasonId = seasonId,
+            sportId = sportId,
+            fields = fields
+        ).toList()
+
+
     companion object {
         fun ApiResponse<SeasonsResponse>.toList(): List<Season> {
             return when (this) {
@@ -48,6 +61,13 @@ class SeasonsClientImpl(
         }
         @JvmName("SeasonsAllResponseToSeasonAllList")
         fun ApiResponse<SeasonsAllResponse>.toList(): List<SeasonAll> {
+            return when (this) {
+                is ApiResponse.Success -> this.data.seasons
+                is ApiResponse.Failure -> emptyList()
+            }
+        }
+        @JvmName("SeasonResponseToSeasonList")
+        fun ApiResponse<SeasonResponse>.toList(): List<Season> {
             return when (this) {
                 is ApiResponse.Success -> this.data.seasons
                 is ApiResponse.Failure -> emptyList()
