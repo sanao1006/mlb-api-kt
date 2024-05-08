@@ -14,6 +14,7 @@ import app.sanao1006.mlbapi.client.sports.SportsClientImpl
 import app.sanao1006.mlbapi.client.standings.StandingsClientImpl
 import app.sanao1006.mlbapi.client.stats.StatsClientImpl
 import app.sanao1006.mlbapi.client.teams.TeamsClientImpl
+import app.sanao1006.mlbapi.client.venue.VenueClientImpl
 import app.sanao1006.mlbapi.model.stats.HittingOrPitchingStat
 import app.sanao1006.mlbapi.model.stats.HittingStat
 import app.sanao1006.mlbapi.model.stats.PitchingStat
@@ -80,4 +81,5 @@ class MlbClient {
     val teamsClient by lazy { TeamsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val sportsClient by lazy { SportsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val seasonsClient by lazy { SeasonsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
+    val venueClient by lazy { VenueClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
 }
