@@ -5,11 +5,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ScheduleResponse(
+data class ScheduleTiedResponse(
     @SerialName("copyright")
     val copyright: String,
     @SerialName("dates")
-    val dates: List<Date>,
+    val dates: List<DateTied>,
     @SerialName("totalEvents")
     val totalEvents: Int,
     @SerialName("totalGames")
@@ -17,21 +17,5 @@ data class ScheduleResponse(
     @SerialName("totalGamesInProgress")
     val totalGamesInProgress: Int,
     @SerialName("totalItems")
-    val totalItems: Int
-)
-
-data class Schedule(
-    val dates: List<Date>,
-    val totalEvents: Int,
-    val totalGames: Int,
-    val totalGamesInProgress: Int,
-    val totalItems: Int
-)
-
-data class ScheduleTied(
-    val dates: List<DateTied>,
-    val totalEvents: Int,
-    val totalGames: Int,
-    val totalGamesInProgress: Int,
     val totalItems: Int
 )

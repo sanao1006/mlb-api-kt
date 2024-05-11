@@ -1,6 +1,7 @@
 package app.sanao1006.mlbapi.client.schedule
 
 import app.sanao1006.mlbapi.model.schedule.ScheduleResponse
+import app.sanao1006.mlbapi.model.schedule.ScheduleTiedResponse
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Query
@@ -23,4 +24,12 @@ interface ScheduleClient {
         @Query("opponentId") opponentId: String?,
         @Query("fields") fields: String?,
     ): ApiResponse<ScheduleResponse>
+
+    @GET("schedule/games/tied")
+    suspend fun getScheduleTied(
+        @Query("season") season: Int,
+        @Query("gameTypes") gameTypes: String,
+        @Query("hydrate") hydrate: String?,
+        @Query("fields") fields: String?,
+    ): ApiResponse<ScheduleTiedResponse>
 }

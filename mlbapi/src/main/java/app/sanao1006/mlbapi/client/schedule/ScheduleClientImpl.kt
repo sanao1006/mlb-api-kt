@@ -1,7 +1,10 @@
 package app.sanao1006.mlbapi.client.schedule
 
+import app.sanao1006.mlbapi.model.GameType
 import app.sanao1006.mlbapi.model.schedule.Schedule
 import app.sanao1006.mlbapi.model.schedule.ScheduleResponse
+import app.sanao1006.mlbapi.model.schedule.ScheduleTied
+import app.sanao1006.mlbapi.model.schedule.ScheduleTiedResponse
 import com.skydoves.sandwich.ApiResponse
 import java.net.ConnectException
 
@@ -39,9 +42,34 @@ class ScheduleClientImpl(
             fields = fields
         ).toSchedule()
 
+    suspend fun getScheduleTied(
+        season: Int,
+        gameTypes: GameType,
+        hydrate: String? = null,
+        fields: String? = null
+    ): ScheduleTied =
+        scheduleClient.getScheduleTied(
+            season = season,
+            gameTypes = gameTypes.value,
+            hydrate = hydrate,
+            fields = fields
+        ).toScheduleTied()
+
     private fun ApiResponse<ScheduleResponse>.toSchedule(): Schedule =
         when (this) {
             is ApiResponse.Success -> Schedule(
+                dates = this.data.dates,
+                totalEvents = this.data.totalEvents,
+                totalGames = this.data.totalGames,
+                totalItems = this.data.totalItems,
+                totalGamesInProgress = this.data.totalGamesInProgress
+            )
+            is ApiResponse.Failure -> throw ConnectException("connection error")
+        }
+
+    private fun ApiResponse<ScheduleTiedResponse>.toScheduleTied(): ScheduleTied =
+        when (this) {
+            is ApiResponse.Success -> ScheduleTied(
                 dates = this.data.dates,
                 totalEvents = this.data.totalEvents,
                 totalGames = this.data.totalGames,
