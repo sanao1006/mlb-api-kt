@@ -10,6 +10,7 @@ import app.sanao1006.mlbapi.client.homeRunDerby.HomeRunDerbyClientImpl
 import app.sanao1006.mlbapi.client.jobs.JobsClientImpl
 import app.sanao1006.mlbapi.client.league.LeagueClientImpl
 import app.sanao1006.mlbapi.client.people.PeopleClientImpl
+import app.sanao1006.mlbapi.client.schedule.ScheduleClientImpl
 import app.sanao1006.mlbapi.client.seasons.SeasonsClientImpl
 import app.sanao1006.mlbapi.client.sports.SportsClientImpl
 import app.sanao1006.mlbapi.client.standings.StandingsClientImpl
@@ -95,4 +96,5 @@ class MlbClient {
     val venueClient by lazy { VenueClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val transactionsClient by lazy { TransactionsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
     val jobsClient by lazy { JobsClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
+    val scheduleClient by lazy { ScheduleClientImpl(api.baseUrl(BASE_URL + V1).build().create()) }
 }
