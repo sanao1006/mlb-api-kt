@@ -35,7 +35,7 @@ class JobsClientImpl(
             fields = fields
         ).toList()
 
-    suspend fun getDatacasters(
+    suspend fun getJobsDatacasters(
         sportId: Int? = null,
         date: String? = null,
         fields: String? = null
