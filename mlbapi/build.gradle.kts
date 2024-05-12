@@ -9,7 +9,7 @@ plugins {
 
 val GROUP_ID = "com.github.sanao1006"
 val ARTIFACT_ID = "mlbapikkt"
-val VERSION = "0.0.11"
+val VERSION = "0.1.0"
 
 android {
     namespace = "app.sanao1006.mlbkt"
