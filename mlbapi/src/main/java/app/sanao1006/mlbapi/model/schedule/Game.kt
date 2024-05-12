@@ -35,7 +35,7 @@ data class Game(
     @SerialName("inningBreakLength")
     val inningBreakLength: Int,
     @SerialName("isTie")
-    val isTie: Boolean,
+    val isTie: Boolean? = null,
     @SerialName("link")
     val link: String,
     @SerialName("officialDate")

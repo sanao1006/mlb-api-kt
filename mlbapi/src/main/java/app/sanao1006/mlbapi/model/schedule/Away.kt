@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Away(
     @SerialName("isWinner")
-    val isWinner: Boolean,
+    val isWinner: Boolean? = null,
     @SerialName("leagueRecord")
     val leagueRecord: LeagueRecord,
     @SerialName("score")
