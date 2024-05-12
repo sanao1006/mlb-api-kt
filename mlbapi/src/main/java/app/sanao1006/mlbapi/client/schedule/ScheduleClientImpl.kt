@@ -2,10 +2,13 @@ package app.sanao1006.mlbapi.client.schedule
 
 import app.sanao1006.mlbapi.model.GameType
 import app.sanao1006.mlbapi.model.schedule.Schedule
+import app.sanao1006.mlbapi.model.schedule.SchedulePostSeason
+import app.sanao1006.mlbapi.model.schedule.SchedulePostSeasonResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleTied
 import app.sanao1006.mlbapi.model.schedule.ScheduleTiedResponse
 import com.skydoves.sandwich.ApiResponse
+import de.jensklingenberg.ktorfit.http.Query
 import java.net.ConnectException
 
 class ScheduleClientImpl(
@@ -55,6 +58,21 @@ class ScheduleClientImpl(
             fields = fields
         ).toScheduleTied()
 
+    suspend fun getSchedulePostSeason(
+        season: Int,
+        gameTypes: GameType? = null,
+        seriesNumber: Int? = null,
+        hydrate: String? = null,
+        fields: String? = null,
+    ): SchedulePostSeason =
+        scheduleClient.getSchedulePostSeason(
+            season = season,
+            gameTypes = gameTypes?.value,
+            seriesNumber = seriesNumber,
+            hydrate = hydrate,
+            fields = fields
+        ).toSchedulePostSeason()
+
     private fun ApiResponse<ScheduleResponse>.toSchedule(): Schedule =
         when (this) {
             is ApiResponse.Success -> Schedule(
@@ -70,6 +88,18 @@ class ScheduleClientImpl(
     private fun ApiResponse<ScheduleTiedResponse>.toScheduleTied(): ScheduleTied =
         when (this) {
             is ApiResponse.Success -> ScheduleTied(
+                dates = this.data.dates,
+                totalEvents = this.data.totalEvents,
+                totalGames = this.data.totalGames,
+                totalItems = this.data.totalItems,
+                totalGamesInProgress = this.data.totalGamesInProgress
+            )
+            is ApiResponse.Failure -> throw ConnectException("connection error")
+        }
+
+    private fun ApiResponse<SchedulePostSeasonResponse>.toSchedulePostSeason(): SchedulePostSeason =
+        when (this) {
+            is ApiResponse.Success -> SchedulePostSeason(
                 dates = this.data.dates,
                 totalEvents = this.data.totalEvents,
                 totalGames = this.data.totalGames,

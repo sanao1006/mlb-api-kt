@@ -1,5 +1,6 @@
 package app.sanao1006.mlbapi.client.schedule
 
+import app.sanao1006.mlbapi.model.schedule.SchedulePostSeasonResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleTiedResponse
 import com.skydoves.sandwich.ApiResponse
@@ -32,4 +33,14 @@ interface ScheduleClient {
         @Query("hydrate") hydrate: String?,
         @Query("fields") fields: String?,
     ): ApiResponse<ScheduleTiedResponse>
+
+    @GET("schedule/postseason")
+    suspend fun getSchedulePostSeason(
+        @Query("season") season: Int,
+        @Query("gameTypes") gameTypes: String?,
+        @Query("seriesNumber") seriesNumber: Int?,
+        @Query("sportId") sportId: Int = 1,
+        @Query("hydrate") hydrate: String?,
+        @Query("fields") fields: String?,
+    ): ApiResponse<SchedulePostSeasonResponse>
 }
