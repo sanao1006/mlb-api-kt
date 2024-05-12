@@ -5,6 +5,8 @@ import app.sanao1006.mlbapi.model.schedule.Schedule
 import app.sanao1006.mlbapi.model.schedule.SchedulePostSeason
 import app.sanao1006.mlbapi.model.schedule.SchedulePostSeasonResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleResponse
+import app.sanao1006.mlbapi.model.schedule.ScheduleSeries
+import app.sanao1006.mlbapi.model.schedule.ScheduleSeriesResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleTied
 import app.sanao1006.mlbapi.model.schedule.ScheduleTiedResponse
 import com.skydoves.sandwich.ApiResponse
@@ -73,6 +75,19 @@ class ScheduleClientImpl(
             fields = fields
         ).toSchedulePostSeason()
 
+    suspend fun getScheduleSeries(
+        season: Int,
+        gameTypes: GameType? = null,
+        seriesNumber: Int? = null,
+        fields: String? = null,
+    ): ScheduleSeries =
+        scheduleClient.getScheduleSeries(
+            season = season,
+            gameTypes = gameTypes?.value,
+            seriesNumber = seriesNumber,
+            fields = fields
+        ).toScheduleSeries()
+
     private fun ApiResponse<ScheduleResponse>.toSchedule(): Schedule =
         when (this) {
             is ApiResponse.Success -> Schedule(
@@ -105,6 +120,19 @@ class ScheduleClientImpl(
                 totalGames = this.data.totalGames,
                 totalItems = this.data.totalItems,
                 totalGamesInProgress = this.data.totalGamesInProgress
+            )
+            is ApiResponse.Failure -> throw ConnectException("connection error")
+        }
+
+    private fun ApiResponse<ScheduleSeriesResponse>.toScheduleSeries(): ScheduleSeries =
+        when (this) {
+            is ApiResponse.Success -> ScheduleSeries(
+                series = data.series,
+                totalEvents = data.totalEvents,
+                totalGames = data.totalGames,
+                totalGamesInProgress = data.totalGamesInProgress,
+                totalItems = data.totalItems,
+                wait = data.wait
             )
             is ApiResponse.Failure -> throw ConnectException("connection error")
         }

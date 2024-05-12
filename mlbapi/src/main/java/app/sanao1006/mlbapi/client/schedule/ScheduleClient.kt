@@ -2,6 +2,7 @@ package app.sanao1006.mlbapi.client.schedule
 
 import app.sanao1006.mlbapi.model.schedule.SchedulePostSeasonResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleResponse
+import app.sanao1006.mlbapi.model.schedule.ScheduleSeriesResponse
 import app.sanao1006.mlbapi.model.schedule.ScheduleTiedResponse
 import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
@@ -43,4 +44,13 @@ interface ScheduleClient {
         @Query("hydrate") hydrate: String?,
         @Query("fields") fields: String?,
     ): ApiResponse<SchedulePostSeasonResponse>
+
+    @GET("schedule/postseason/series")
+    suspend fun getScheduleSeries(
+        @Query("season") season: Int,
+        @Query("gameTypes") gameTypes: String?,
+        @Query("seriesNumber") seriesNumber: Int?,
+        @Query("sportId") sportId: Int = 1,
+        @Query("fields") fields: String?,
+    ): ApiResponse<ScheduleSeriesResponse>
 }
